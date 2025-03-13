@@ -25,8 +25,3 @@ A classic Snake game with enhanced features, playable in your terminal window.
 2. Eat food to grow and earn points
 3. Avoid hitting the walls or your own tail
 4. Try to achieve the highest score possible
-
-## Installation
-
-1. Make sure you have Python installed on your system
-2. Install the required package:
