@@ -138,7 +138,6 @@ def main(stdscr):
 
         
         if snake[0] == food:
-            # Update score
             score += food_points
             
             
