@@ -8,7 +8,7 @@ def main(stdscr):
     sh, sw = stdscr.getmaxyx()
     w = curses.newwin(sh, sw, 0, 0)
     w.keypad(1)
-    w.timeout(100)  
+    w.timeout(75)  # Reduced timeout for faster initial speed
 
     
     curses.start_color()
@@ -56,15 +56,17 @@ def main(stdscr):
     
     key = curses.KEY_RIGHT
     score = 0
-    high_score = 0
     paused = False
     last_food_time = time()
     bonus_food_active = False
     bonus_food = None
 
+    # Load high score from file
+    high_score = load_high_score()
+
     
-    score_str = f"Score: {score} | High Score: {high_score}"
     try:
+        score_str = f"Score: {score} | High Score: {high_score}"
         w.addstr(2, sw // 2 - len(score_str) // 2, score_str)
     except curses.error:
         pass
@@ -120,10 +122,10 @@ def main(stdscr):
         
         
         if snake[0][0] in [0, sh - 1] or snake[0][1] in [0, sw - 1] or snake[0] in snake[1:]:
-            # Update high score
+            
             if score > high_score:
                 high_score = score
-                
+                save_high_score(high_score)
             
             w.clear()
             try:
@@ -141,8 +143,8 @@ def main(stdscr):
             score += food_points
             
             
-            if score % 10 == 0 and w.timeout() > 50:
-                w.timeout(w.timeout() - 5)
+            if score % 10 == 0 and w.timeout() > 40:
+                w.timeout(w.timeout() - 5)  # Increase speed
                 
             
             food = None
@@ -238,6 +240,25 @@ def main(stdscr):
             w.addstr(2, sw // 2 - len(score_str) // 2, score_str)
         except curses.error:
             pass
+        
+        w.refresh()
+        
+# Helper functions for high score persistence
+def load_high_score():
+    try:
+        with open("highscore.txt", "r") as f:
+            return int(f.read())
+    except FileNotFoundError:
+        return 0
+    except ValueError:
+        return 0
+
+def save_high_score(high_score):
+    try:
+        with open("highscore.txt", "w") as f:
+            f.write(str(high_score))
+    except Exception as e:
+        print(f"Error saving high score: {e}")
 
 if __name__ == "__main__":
     curses.wrapper(main)
