@@ -8,7 +8,7 @@ def main(stdscr):
     sh, sw = stdscr.getmaxyx()
     w = curses.newwin(sh, sw, 0, 0)
     w.keypad(1)
-    w.timeout(75)  # Reduced timeout for faster initial speed
+    w.timeout(75)  
 
     
     curses.start_color()
@@ -61,7 +61,7 @@ def main(stdscr):
     bonus_food_active = False
     bonus_food = None
 
-    # Load high score from file
+    
     high_score = load_high_score()
 
     
@@ -144,7 +144,7 @@ def main(stdscr):
             
             
             if score % 10 == 0 and w.timeout() > 40:
-                w.timeout(w.timeout() - 5)  # Increase speed
+                w.timeout(w.timeout() - 5)  
                 
             
             food = None
@@ -243,7 +243,7 @@ def main(stdscr):
         
         w.refresh()
         
-# Helper functions for high score persistence
+
 def load_high_score():
     try:
         with open("highscore.txt", "r") as f:
