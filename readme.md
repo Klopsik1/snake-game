@@ -16,5 +16,4 @@ A classic Snake game with enhanced features, playable in your terminal window.
   - Special food (◆): Blue, worth 3 points 
   - Rare food (£): Magenta, worth 5 points
 - **Bonus Food ($)**: Appears randomly for a limited time, worth 10 points
-- **Increasing Difficulty**: The game speeds up as your score grows
 - **Score Tracking**: Current score and high score displayed at the top
